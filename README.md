@@ -16,6 +16,8 @@ There are a few diffirent arguments available:
 In progress:
 * Input a dir with pictures and create a colorpanorama from this
 
+Thanks to [DanielSWolf](https://gist.github.com/DanielSWolf) for the progressbar code
+
 Sample output:
 
 *Batman v Superman, -w 1 -h 1000 -s 1, so 1 screen cap for each second, for a total of 9k vertical lines.*
