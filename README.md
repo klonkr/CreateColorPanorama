@@ -2,7 +2,7 @@
 A simlpe command line tool to create panoramas based on a movies' color theme. It spits out an SVG in panoramas/
 all the screen caps in output/movie/.
 
-You need to download both ffmpeg.exe and ffprobe.exe, available at: https://ffmpeg.org/download.html#build-windows
+You need to download both ffmpeg.exe and ffprobe.exe, available at: [FFmpegs website](https://ffmpeg.org/download.html#build-windows).
 Copy these to bin/
 
 There are a few diffirent arguments available:
