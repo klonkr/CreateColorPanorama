@@ -24,9 +24,9 @@ Sample output:
 ![alt text](http://i.imgur.com/o7p9k8L.png "Batman v Superman")
 
 *Mr Robot s02e01, same settings as above*
-![alt text](http://i.imgur.com/18Ttfq8.png "Mr Robot s02e01")
+![alt text](http://i.imgur.com/m7tsicj.png "Mr Robot s02e01")
 
 *Mr Robot s02e02, same settings as above*
-![alt text](http://i.imgur.com/NiF70Ly.png "Mr Robot s02e02")
+![alt text](http://i.imgur.com/C1RnLvl.png "Mr Robot s02e02")
 
 
