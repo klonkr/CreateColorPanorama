@@ -21,7 +21,7 @@ Thanks to [DanielSWolf](https://gist.github.com/DanielSWolf) for the progressbar
 Sample output:
 
 *Batman v Superman, -w 1 -h 1000 -s 1, so 1 screen cap for each second, for a total of 9k vertical lines.*
-![alt text](http://i.imgur.com/o7p9k8L.png "Batman v Superman")
+![alt text](http://i.imgur.com/fcahKzV.png "Batman v Superman")
 
 *Mr Robot s02e01, same settings as above*
 ![alt text](http://i.imgur.com/m7tsicj.png "Mr Robot s02e01")
