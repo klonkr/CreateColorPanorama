@@ -96,6 +96,8 @@ namespace CreateColorPanorama
         public void GenerateSVG()
         {
             int x = 0;
+            System.IO.Directory.CreateDirectory($"panoramas/");
+
             foreach (var picture in Pictures)
             {
                 Bitmap bm = new Bitmap($@"output\{FolderName}\{picture}.jpg");
