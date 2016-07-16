@@ -20,8 +20,5 @@ namespace CreateColorPanorama
         public double Spp;
         [FileArgument('o', "output", Description = "Output file", FileMustExist = false, Optional = true)]
         public FileInfo OutPutFile;
-        [SwitchArgument('v', "verbose", true, Description = "Shows whats going on", Optional = false)]
-        public bool Verbose;
-
     }
 }
