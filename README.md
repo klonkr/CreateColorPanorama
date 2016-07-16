@@ -16,7 +16,7 @@ There are a few diffirent arguments available:
 In progress:
 * Input a dir with pictures and create a colorpanorama from this
 
-Thanks to [DanielSWolf](https://gist.github.com/DanielSWolf) for the progressbar code
+Thanks to [DanielSWolf](https://gist.github.com/DanielSWolf) for the progressbar code, and [j-maly](https://github.com/j-maly) (and contributors) for [CommandLineParser](https://github.com/j-maly/CommandLineParser).
 
 Sample output:
 
