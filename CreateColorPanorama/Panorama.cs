@@ -31,13 +31,13 @@ namespace CreateColorPanorama
             Svg = new List<string>
                 {@"<?xml version=""1.0"" standalone=""no""?>", $@"<svg width=""{Width}"" height=""¨{Height}"" xmlns=""http://www.w3.org/2000/svg"" version=""1.1"">"};
             if (Gradient)
-                Svg.Add(@"<defs>
-                            <linearGradient id=""Gradient2"" x1=""0"" x2=""0"" y1=""0"" y2=""1"">
-                            <stop offset=""0%"" stop-color=""black""/>
-                            <stop offset=""50%"" stop-color=""black"" stop-opacity=""0""/>
-                            <stop offset=""100%"" stop-color=""black""/>
-                            </linearGradient>
-                        </defs>");
+                Svg.Add(@"  <defs>
+      <linearGradient id=""Gradient2"" x1=""0"" x2=""0"" y1=""0"" y2=""1"">
+        <stop offset=""0%"" stop-color=""black""/>
+        <stop offset=""50%"" stop-color=""black"" stop-opacity=""0""/>
+        <stop offset=""100%"" stop-color=""black""/>
+      </linearGradient>
+  </defs>");
             GenerateSvg();
         }
 
@@ -111,12 +111,12 @@ namespace CreateColorPanorama
                     Bitmap bm = new Bitmap($"output/{FolderName}/{i + 1}.png");
                     Color co = CalculateAverageColor(bm);
                     Svg.Add(
-                        $@" <rect x=""{x}"" y=""0"" width=""{WidthPerPic}"" height=""{Height}"" fill=""rgb({co.R},{co.G},{co.B})"" z-index=""-1""/>");
+                        $@"  <rect x=""{x}"" y=""0"" width=""{WidthPerPic}"" height=""{Height}"" fill=""rgb({co.R},{co.G},{co.B})"" z-index=""-1""/>");
                     x += WidthPerPic;
                     progressBar.Report((double)i / Pictures.Length);
                 }
                 if(Gradient)
-                    Svg.Add($@"<rect id=""rect1"" x=""0"" y=""0"" z-index=""1"" width=""{Width}"" height=""{Height}"" fill=""url(#Gradient2)""/>");
+                    Svg.Add($@"  <rect id=""rect1"" x=""0"" y=""0"" z-index=""1"" width=""{Width}"" height=""{Height}"" fill=""url(#Gradient2)""/>");
                 Svg.Add(@"</svg>");
             }
             using (StreamWriter file = new StreamWriter($"panoramas/{FileName}.svg"))
