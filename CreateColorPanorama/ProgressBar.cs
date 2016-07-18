@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace CreateColorPanorama
 {
-    public class ProgressBar : IDisposable, IProgress<double>
+    public sealed class ProgressBar : IDisposable, IProgress<double>
     {
         private const int blockCount = 100;
         private readonly TimeSpan animationInterval = TimeSpan.FromSeconds(1.0 / 8);

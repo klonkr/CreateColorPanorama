@@ -36,7 +36,7 @@ namespace CreateColorPanorama
             Video v = new Video(aa.InputFile.ToString(), aa.Spp);
             if (v.ConvertToJpegs())
             {
-                Panorama panorama = new Panorama(v, aa.Width, aa.Height, aa.OutPutFile);
+                Panorama panorama = new Panorama(v, aa.Width, aa.Height, aa.OutPutFile, aa.Gradient);
             }
         }
     }

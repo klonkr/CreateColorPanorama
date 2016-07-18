@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,91 +13,84 @@ namespace CreateColorPanorama
     public class Video
     {
         public string FileLocation { get; }
-        public int Time { get; set; }
-        public List<int> Pics { get; set; }
-        public string FileName { get; set; }
-        public double SPP { get; set; }
+        private int Time { get; set; }
+        private string FileName { get; }
+        private double Spp { get; set; }
+        private ProgressBar ProgressBar { get; set; }
+        private List<int> Progress { get; set; }
 
         public Video(string fileLocation, double spp)
         {
-            SPP = spp;
-            Pics = new List<int>();
-            this.FileLocation = fileLocation;
-            this.FileName = Path.GetFileNameWithoutExtension(FileLocation);
+            Progress = new List<int>();
+            Spp = spp;
+            FileLocation = fileLocation;
+            FileName = Path.GetFileNameWithoutExtension(FileLocation);
             GetDuration();
         }
 
         public void GetDuration()
         {
-            Process process = new Process();
-
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-
-            process.StartInfo.FileName =
-                Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) +
-                @"\bin\ffprobe.exe";
-
-            process.StartInfo.Arguments =
-            $"-v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {FileLocation}";
-
-            string duration = null;
-            process.Start();
-            while (!process.StandardOutput.EndOfStream)
+            using (Process process = new Process())
             {
-                duration = process.StandardOutput.ReadLine();
-                
-            }
-            DateTime dt = new DateTime();
-            if (duration != null)
-            {
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.FileName =
+                    Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) +
+                    @"\bin\ffprobe.exe";
+                process.StartInfo.Arguments =
+                $"-v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {FileLocation}";
+
+                string duration = null;
+                process.Start();
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    duration = process.StandardOutput.ReadLine();
+
+                }
                 Time = (int)double.Parse(duration);
-                // Duration = dt;
+
+                process.WaitForExit();
             }
-            
-
-
-            process.Close();
         }
         public bool ConvertToJpegs()
         {
             Console.WriteLine($"Starning conversion of video {FileLocation}...");
-            DateTime dt = new DateTime();
-            int minutemark = 0;
             System.IO.Directory.CreateDirectory($"output/{FileName}");
 
-            using (var progress = new ProgressBar())
+            using (Process process = new Process())
             {
-                for (int i = 0; i < Time / SPP; i++)
-                {
-                    Process process = new Process();
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                //process.OutputDataReceived += new DataReceivedEventHandler(OutPutHandler);
+                process.ErrorDataReceived += new DataReceivedEventHandler(OutPutHandler);
 
-                    process.StartInfo.RedirectStandardOutput = true;
-                    process.StartInfo.RedirectStandardError = true;
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.FileName =
+                    Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) +
+                    @"\bin\ffmpeg.exe";
+                process.StartInfo.Arguments =
+                    $"-y -i {FileLocation} -vf fps={Spp} output/{FileName}/%d.png";
 
-                    process.StartInfo.FileName =
-                        Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) +
-                        @"\bin\ffmpeg.exe";
-                    process.StartInfo.Arguments =
-                    $"-y -ss { dt.ToString("HH:mm:ss")} -i {FileLocation} -frames:v 1 output/{FileName}/{i}.jpg";
+                ProgressBar = new ProgressBar();
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                //string output = process.StandardError.ReadToEnd();
+                process.WaitForExit();
 
-                    process.Start();
-                    process.BeginOutputReadLine();
-                    string output = process.StandardError.ReadToEnd();
-                    process.WaitForExit(2000);
-                    process.Close();
-
-                    progress.Report((double) i / (Time/SPP));
-                    Thread.Sleep(20);
-                    dt = dt.AddSeconds(SPP);
-                    Pics.Add(i);
-                }
             }
             return true;
+        }
+
+        private void OutPutHandler(object sender, DataReceivedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(e.Data) || !e.Data.Contains("frame")) return;
+            string output = e.Data;
+            int result = int.Parse(Regex.Match(output, @"\+?\d+").ToString());
+            ProgressBar.Report((double)result / (Time * Spp));
         }
     }
 }
