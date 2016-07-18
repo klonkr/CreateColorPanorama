@@ -100,8 +100,7 @@ namespace CreateColorPanorama
                     Bitmap bm = new Bitmap($"output/{FolderName}/{i + 1}.png");
                     Color co = CalculateAverageColor(bm);
                     Svg.Add(
-                        $@" <rect x=""{x}"" y=""0"" width=""{WidthPerPic}"" height=""{Height}"" fill=""rgb({co.R},{co.G},{co
-                            .B})""/>");
+                        $@" <rect x=""{x}"" y=""0"" width=""{WidthPerPic}"" height=""{Height}"" fill=""rgb({co.R},{co.G},{co.B})"" z-index=""-1""/>");
                     x += WidthPerPic;
                     progressBar.Report((double)i / Pictures.Length);
                 }
