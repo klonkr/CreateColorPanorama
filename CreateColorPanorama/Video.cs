@@ -72,7 +72,7 @@ namespace CreateColorPanorama
                     Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) +
                     @"\bin\ffmpeg.exe";
                 process.StartInfo.Arguments =
-                    $"-y -i {FileLocation} -vf fps=1 output/{FileName}/%d.png";
+                    $"-y -i {FileLocation} -vf fps={Spp} output/{FileName}/%d.png";
 
                 ProgressBar = new ProgressBar();
                 process.Start();
@@ -90,7 +90,7 @@ namespace CreateColorPanorama
             if (string.IsNullOrEmpty(e.Data) || !e.Data.Contains("frame")) return;
             string output = e.Data;
             int result = int.Parse(Regex.Match(output, @"\+?\d+").ToString());
-            ProgressBar.Report((double)result / Time);
+            ProgressBar.Report((double)result / (Time * Spp));
         }
     }
 }

@@ -12,10 +12,10 @@ namespace CreateColorPanorama
         private string[] Pictures { get; }
         private string FolderName { get; }
         private string FileName { get; }
-        private int WidthPerPic { get; }
+        private double WidthPerPic { get; }
         private int Height { get; }
 
-        public Panorama(Video video, int widthPerPic, int height, FileInfo outputfile)
+        public Panorama(Video video, double widthPerPic, int height, FileInfo outputfile)
         {
             FolderName = Path.GetFileNameWithoutExtension(video.FileLocation);
             Pictures = Directory.GetFiles($"output/{FolderName}");
@@ -24,7 +24,7 @@ namespace CreateColorPanorama
             //Pictures = video.Pics;
             FileName = outputfile != null ? Path.GetFileNameWithoutExtension(outputfile.ToString()) : FolderName;
 
-            int width = Pictures.Length * WidthPerPic;
+            double width = Pictures.Length * WidthPerPic;
             Svg = new List<string>
                 {@"<?xml version=""1.0"" standalone=""no""?>", $@"<svg width=""{width}"" height=""¨{Height}"" xmlns=""http://www.w3.org/2000/svg"" version=""1.1"">"};
             GenerateSvg();
@@ -90,7 +90,7 @@ namespace CreateColorPanorama
 
         public void GenerateSvg()
         {
-            int x = 1;
+            double x = 1;
             System.IO.Directory.CreateDirectory($"panoramas/");
             Console.WriteLine("Starting");
             using (ProgressBar progressBar = new ProgressBar())
