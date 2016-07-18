@@ -10,8 +10,10 @@ There are a few diffirent arguments available:
 - -i  Specifies the input video file, **required**
 - -w  Specifies the width of each individual vertical line, optional, default is 1
 - -h  Specifies the height of the resulting svg
-- -s  Specifies the Seconds per pic, aka, how many seconds between each screen cap
+- ~~-s  Specifies the Seconds per pic, aka, how many seconds between each screen cap~~ (still works on v0.1.1)
+- -f  Specifies the frames per seconds, so like the old -s but the other way around (only v0.2)
 - -o  Specifies the output file name
+- -g  to turn of gradients
 
 In progress:
 * Input a dir with pictures and create a colorpanorama from this
@@ -19,6 +21,10 @@ In progress:
 Thanks to [DanielSWolf](https://gist.github.com/DanielSWolf) for the progressbar code, and [j-maly](https://github.com/j-maly) (and contributors) for [CommandLineParser](https://github.com/j-maly/CommandLineParser).
 
 Sample output:
+
+**Now with gradients!**
+*Batman v Superman, -w 1 -h 1000 -s 1, so 1 screen cap for each second, for a total of 9k vertical lines.*
+![alt text](http://i.imgur.com/rNOq050.png "Batman v Superman")
 
 *Batman v Superman, -w 1 -h 1000 -s 1, so 1 screen cap for each second, for a total of 9k vertical lines.*
 ![alt text](http://i.imgur.com/fcahKzV.png "Batman v Superman")
