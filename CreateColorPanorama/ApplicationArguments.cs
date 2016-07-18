@@ -25,7 +25,7 @@ namespace CreateColorPanorama
         [FileArgument('o', "output", Description = "Output file", FileMustExist = false, Optional = true)]
         public FileInfo OutPutFile;
 
-        [SwitchArgument('g', defaultValue: true, Description = "Set gradient, default is true", Optional = true)] public
-            bool Gradient;
+        [SwitchArgument('g', true, Description = "Set gradient, default is true", Optional = true)]
+        public bool Gradient;
     }
 }

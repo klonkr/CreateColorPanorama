@@ -103,7 +103,7 @@ namespace CreateColorPanorama
         {
             double x = 1;
             System.IO.Directory.CreateDirectory($"panoramas/");
-            Console.WriteLine("Starting");
+            Console.WriteLine("Stitching pictures together...");
             using (ProgressBar progressBar = new ProgressBar())
             {
                 for (int i = 0; i < Pictures.Length; i++)
@@ -119,6 +119,7 @@ namespace CreateColorPanorama
                     Svg.Add($@"  <rect id=""rect1"" x=""0"" y=""0"" z-index=""1"" width=""{Width}"" height=""{Height}"" fill=""url(#Gradient2)""/>");
                 Svg.Add(@"</svg>");
             }
+            Console.WriteLine("Done!");
             using (StreamWriter file = new StreamWriter($"panoramas/{FileName}.svg"))
             {
                 foreach (var line in Svg)
